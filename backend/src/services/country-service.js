@@ -3,31 +3,54 @@ const NagerHttp = require("../pluggins/nager-http.js");
 
 class CountryService {
   static async AvailableCountries() {
-    const {data: response }= await NagerHttp.get("/AvailableCountries");
+    const { data: response } = await NagerHttp.get("/AvailableCountries");
     return response;
   }
 
-  static async getBorderCountriesByCountry(countryCode) {
-    const { data: { borders: response } } = await NagerHttp.get(
+  static async getCountry(countryCode) {
+    const { data: response } = await NagerHttp.get(
       `/CountryInfo/${countryCode}`
     );
+    let flags = await this.AllFlags();
+    // To fit the flag into country
+    flags.find((flag) => {
+      if (flag.name == response.commonName) {
+        response.flag = flag.flag;
+        return true;
+      }
+    });
+
+    response.borders.forEach(border => {
+      border.name = border.commonName
+      flags.find(flag => {
+        if(flag.name == border.commonName){
+          border.flag = flag.flag;
+          return true;
+        }
+      })
+      delete border.commonName;
+    })
+
     return response;
   }
 
   static async getPopulationByCountry(countryName) {
-    const { data: _allCountriesPopulation } = await CountriesNowHttp.get(
+    const { data: {data: _allCountriesPopulation } } = await CountriesNowHttp.get(
       "/population"
     );
+
     const response =
-      _allCountriesPopulation.filter(
-        (country) => country.name == countryName
+      _allCountriesPopulation.find(
+        (country) => country.country.toLowerCase() == countryName.toLowerCase()
       ) || null;
     return response;
   }
 
   // If you see the endpoint, there are some countries without flags
   static async AllFlags() {
-    const { data: {data: response } } = await CountriesNowHttp.get("/flag/images");
+    const {
+      data: { data: response },
+    } = await CountriesNowHttp.get("/flag/images");
     return response;
   }
 

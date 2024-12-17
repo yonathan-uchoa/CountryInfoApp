@@ -1,5 +1,5 @@
 const CountryService = require("../services/country-service");
-const GenericError = require("../Utils/genericError");
+const GenericError = require("../utils/genericError");
 
 class CountryController {
   static async getCountries() {
@@ -32,8 +32,8 @@ class CountryController {
       });
   }
 
-  static async getBorderByCountryCode(countryCode) {
-    return CountryService.getBorderCountriesByCountry(countryCode)
+  static async getCountry(countryCode) {
+    return CountryService.getCountry(countryCode)
       .then((res) => {
         if (res == null)
           GenericError("NotFound", "The country code has not been found", 404);
