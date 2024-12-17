@@ -24,6 +24,7 @@ const HomePage = () => {
           type="search"
           variant="outlined"
           onChange={onChangeSearchHandler}
+          fullWidth
         />
         <CountryList countries={countries} />
       </Box>

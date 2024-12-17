@@ -1,10 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import { useLoaderData } from "react-router-dom";
+import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
 import CountryList from "../../components/Country/CountryList/CountryList";
 import PopulationChart from "../../components/PopulationChart/PopulationChart";
 
 const CountryPage = () => {
-  const {Country, Population} = useLoaderData() as any;
+  const Data = useLoaderData() as any;
+  if(Data == null)
+    return <Navigate to="/notfound"/>;
+  const {Country, Population} = Data;
   console.log("my country", Population);
   return (
     <Box>

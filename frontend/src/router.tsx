@@ -4,6 +4,7 @@ import HomePage from "./pages/Home/HomePage";
 import CountryPage from "./pages/Country/CountryPage";
 import HomeLoader from "./pages/Home/HomeLoader";
 import CountryLoader from "./pages/Country/CountryLoader";
+import NotFoundPage from "./pages/NotFound/NotFound";
 
 export const Routes = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const Routes = createBrowserRouter([
         element: <CountryPage />,
         loader: CountryLoader,
       },
+      {
+        path: "/notfound",
+        element: <NotFoundPage />
+      }
     ],
   },
 ]);
