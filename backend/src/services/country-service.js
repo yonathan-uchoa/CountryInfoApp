@@ -20,24 +20,24 @@ class CountryService {
       }
     });
 
-    response.borders.forEach(border => {
-      border.name = border.commonName
-      flags.find(flag => {
-        if(flag.name == border.commonName){
+    response.borders.forEach((border) => {
+      border.name = border.commonName;
+      flags.find((flag) => {
+        if (flag.name == border.commonName) {
           border.flag = flag.flag;
           return true;
         }
-      })
+      });
       delete border.commonName;
-    })
+    });
 
     return response;
   }
 
   static async getPopulationByCountry(countryName) {
-    const { data: {data: _allCountriesPopulation } } = await CountriesNowHttp.get(
-      "/population"
-    );
+    const {
+      data: { data: _allCountriesPopulation },
+    } = await CountriesNowHttp.get("/population");
 
     const response =
       _allCountriesPopulation.find(
