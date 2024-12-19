@@ -24,7 +24,7 @@ const CountryList = ({ countries }: any) => {
               onClick={() => CountryOnClickHandler(country.countryCode)}
             >
               <ListItemAvatar key={`country-flag-${country.countryCode}`}>
-                <img src={country.flag} width="35px" height="22px" />
+                <img src={country.flag? country.flag : "https://placehold.co/35x22"} width="35px" height="22px" />
               </ListItemAvatar>
               <ListItemText
                 id={`country-text-${country.countryCode}`}

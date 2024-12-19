@@ -4,7 +4,7 @@ import { useTicks } from "@mui/x-charts/hooks/useTicks";
 
 const PopulationChart = ({ populationData }: any) => {
   console.log("teste", populationData);
-  if (populationData.status == 200) {
+  if (populationData?.status == 200) {
     return (
       <LineChart
         dataset={populationData.data.data.populationCounts}
